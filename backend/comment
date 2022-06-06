@@ -1,0 +1,21 @@
+Three Type of error we must handler
+1. Undhandled Promise rejection error
+2. Uncaught Exception
+3. MongoDB Error -- Also called CastError -- error (Done in middleware folder)
+
+Other Error For Safety Purpose
+1. Try Catch Error -- catchAsyncError (Done in middleware folder)
+2. Error For If conditions -- error (Done in middleware folder)
+
+Seperate Class for error
+1. errorHandling (Done in utils folder)
+
+
+Backend User Password And Authentication 
+---> Libraries to be installed
+1. bcryptjs
+2. jsonwebtoken
+3. validator
+4. nodemailer
+5. cookie-parser
+6. body-parser
