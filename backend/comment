@@ -19,3 +19,12 @@ Backend User Password And Authentication
 4. nodemailer
 5. cookie-parser
 6. body-parser
+
+Buildin Module
+1. crypto
+
+
+PORT = 4000;
+
+JWT_SECRET = KFDBFSDBFISDFSD9YSDF8WE9RIEWFUBEIUWIT783Y92U09ID9FDJIFB
+JWT_EXPIRE = 5

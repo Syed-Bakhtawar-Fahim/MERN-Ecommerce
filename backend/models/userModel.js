@@ -2,8 +2,8 @@ const mongoose = require("mongoose")
 const validator = require("validator")
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const dotenv = require("dotenv");
-dotenv.config({path: "./config/config"});
+const crypto = require("crypto")
+require('dotenv').config();
 
 // JWT_SECRET = KFDBFSDBFISDFSD9YSDF8WE9RIEWFUBEIUWIT783Y92U09ID9FDJIFB
 // JWT_EXPIRE = 5
@@ -59,10 +59,31 @@ userSchema.pre("save", async function(next){
 
 // JWT Token
 // Schema + methods + functionName = fucntion()
+const JWT_SECRET = "KFDBFSDBFISDFSD9YSDF8WE9RIEWFUBEIUWIT783Y92U09ID9FDJIFB"
+const JWT_EXPIRE = 5
 userSchema.methods.getJWTToken = function(){
-    return jwt.sign({id: this._id}, process.env.JWT_SECRET, {
-        expiresIn: process.env.JWT_EXPIRE
+    return jwt.sign({id: this._id}, JWT_SECRET, {
+        expiresIn: JWT_EXPIRE
     })
 }
+
+// Compare Password
+userSchema.methods.comparePassword = async function(enterPassword){
+    return await bcrypt.compare(enterPassword, this.password)
+}
+
+// Generating Password Reset Token
+userSchema.methods.getResetPasswordToken = function(){
+    const resetToken = crypto.randomBytes(20).toString("hex")
+
+    // Hashing And adding to user schema
+    this.resetPasswordToken = crypto.createHash("sha256")
+    .update(resetToken)
+    .digest("hex")
+
+    this.resetPasswordExpire = Date.now() + 15 * 60 * 1000
+    return resetToken;
+}
+
 
 module.exports = mongoose.model("User", userSchema)
