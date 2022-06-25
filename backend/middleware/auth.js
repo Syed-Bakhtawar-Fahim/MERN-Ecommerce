@@ -10,9 +10,9 @@ exports.isAuthentication  = catchAsyncError(async (req, res, next) => {
     if(!token)
         return next(new ErrorHandler("Please Login to access this resource", 401))
 
-    const JWT_SECRET = "KFDBFSDBFISDFSD9YSDF8WE9RIEWFUBEIUWIT783Y92U09ID9FDJIFB"
-    const JWT_EXPIRE = 5
-    const decodedData = jwt.verify(token, JWT_SECRET)
+    // const JWT_SECRET = "KFDBFSDBFISDFSD9YSDF8WE9RIEWFUBEIUWIT783Y92U09ID9FDJIFB"
+    // const JWT_EXPIRE = 5
+    const decodedData = jwt.verify(token, process.env.JWT_SECRET)
 
     req.user = await User.findById(decodedData.id);
     next()

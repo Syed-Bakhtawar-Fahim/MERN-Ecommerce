@@ -59,11 +59,11 @@ userSchema.pre("save", async function(next){
 
 // JWT Token
 // Schema + methods + functionName = fucntion()
-const JWT_SECRET = "KFDBFSDBFISDFSD9YSDF8WE9RIEWFUBEIUWIT783Y92U09ID9FDJIFB"
-const JWT_EXPIRE = 5
+// const JWT_SECRET = "KFDBFSDBFISDFSD9YSDF8WE9RIEWFUBEIUWIT783Y92U09ID9FDJIFB"
+// const JWT_EXPIRE = 5
 userSchema.methods.getJWTToken = function(){
-    return jwt.sign({id: this._id}, JWT_SECRET, {
-        expiresIn: JWT_EXPIRE
+    return jwt.sign({id: this._id}, process.env.JWT_SECRET, {
+        expiresIn: process.env.JWT_EXPIRE
     })
 }
 
